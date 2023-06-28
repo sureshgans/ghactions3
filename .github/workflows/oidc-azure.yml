@@ -6,6 +6,7 @@ on:
 
 permissions:
   id-token: write
+  contents: read
 
 jobs:
   dev:
@@ -13,9 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     steps:
-    - uses: actions/checkout@v2
-    - name: Azure Login using OIDC
-      uses: ./.github/workflows/composite/azure-oidc-login
+    - uses: azure/login@v1
+    - name: 'Az CLI login'
       with:
         tenant_id: ${{ secrets.AZURE_TENANT_ID }}
         client_id: ${{ secrets.AZURE_CLIENT_ID }}
